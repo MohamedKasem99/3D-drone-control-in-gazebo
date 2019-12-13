@@ -1,0 +1,43 @@
+First I learned to use the socket interface in Python. 
+I used i t to send a space character and wait until I get a response
+Once I do I continue on reading in an infinite loop
+Next I am creating a ros package to hold the node
+1. I created the catkin_ws
+$ mkdir -p ~/catkin_ws/src
+$ cd ~/catkin_ws
+$ catkin_make
+I created a package 
+using 
+$ cd ~/catkin_ws/src
+$ catkin_create_pkg imu_raw std_msgs geometry_msgs sensor_msgs rospy
+Then I created a scripts folder 
+$ cd ~/catkin_ws/src/imu_raw/
+$ mkdir scripts
+$ cd scripts
+I added a file for the node `read_socket.py`
+I made it executable using `chmod u+x read_socket.py`
+I also added the imu_tools package 
+$ cd catkin_ws/src
+$ git clone -b melodic https://github.com/ccny-ros-pkg/imu_tools.git
+$ rosdep install imu_tools
+Then I ran catkin make
+$ cd ~/catkin_ws
+$ catkin_make
+I run the complementary filter: 
+$ rosrun imu_complementary_filter complementary_filter_node
+and my creadted node as:
+$ rosrun imu_raw read_sock.py
+
+Now we should have the following up and running: 
+roscore 
+complementary filter 
+read_sock.py
+
+Next open rviz
+$rosrun rviz rviz 
+
+in the left panel click "add" and choose imu under rviz_imu_plugin
+now you have imu in the left panel. navigate to topic under imu menu and write imu/data (the topic which complementary filter publishes on)
+
+now navigate to global options in the left panel and write imu in the fixed frame option. This should resolve the error you just encountered due to ambigious references. 
+

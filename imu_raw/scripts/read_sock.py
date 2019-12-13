@@ -15,9 +15,9 @@ def assign_data(imu_msg, data):
     imu_msg.linear_acceleration.x = float(data[0])*9.8
     imu_msg.linear_acceleration.y = float(data[1])*9.8
     imu_msg.linear_acceleration.z = float(data[2])*9.8
-    imu_msg.angular_velocity.x = float(data[3])*math.pi/250
-    imu_msg.angular_velocity.y = float(data[4])*math.pi/250
-    imu_msg.angular_velocity.z = float(data[5])*math.pi/250
+    imu_msg.angular_velocity.x = float(data[3])*math.pi/180
+    imu_msg.angular_velocity.y = float(data[4])*math.pi/180
+    imu_msg.angular_velocity.z = float(data[5])*math.pi/180
     imu_msg.header.stamp = rospy.Time.now()
     imu_msg.header.frame_id = "imu"
     imu_msg.header.seq = seq

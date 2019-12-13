@@ -7,16 +7,17 @@ from geometry_msgs.msg import Vector3
 from geometry_msgs.msg import Quaternion
 from sensor_msgs.msg import Imu
 from time import sleep
+import math
 seq = 0
 def assign_data(imu_msg, data):
     global seq
     # Add the data to imu message and increment seq
-    imu_msg.linear_acceleration.x = float(data[0])
-    imu_msg.linear_acceleration.y = float(data[1])
-    imu_msg.linear_acceleration.z = float(data[2])
-    imu_msg.angular_velocity.x = float(data[3])
-    imu_msg.angular_velocity.y = float(data[4])
-    imu_msg.angular_velocity.z = float(data[5])
+    imu_msg.linear_acceleration.x = float(data[0])*9.8
+    imu_msg.linear_acceleration.y = float(data[1])*9.8
+    imu_msg.linear_acceleration.z = float(data[2])*9.8
+    imu_msg.angular_velocity.x = float(data[3])*math.pi/250
+    imu_msg.angular_velocity.y = float(data[4])*math.pi/250
+    imu_msg.angular_velocity.z = float(data[5])*math.pi/250
     imu_msg.header.stamp = rospy.Time.now()
     imu_msg.header.frame_id = "imu"
     imu_msg.header.seq = seq
@@ -30,7 +31,7 @@ def main():
     rospy.init_node('imu_raw_publisher')
     rospy.loginfo("made imu_raw_publisher node")
     # 3. Specify rate at 1000 Hz
-    rate = rospy.Rate(1000)
+    rate = rospy.Rate(5000)
     # 4. Create a UDP Socket
     txSocket = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
     txSocket.setblocking(0)

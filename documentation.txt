@@ -1,3 +1,18 @@
+Hardware configs: 
+Connections:
+
+SCL =====> D6
+SDA =====> D7 
+Vcc =====> 3.3 v
+GND 
+
+
+Versions:
+Arduino IDE version === 1.8.9
+ESP === 2.6.0
+
+
+
 First I learned to use the socket interface in Python. 
 I used i t to send a space character and wait until I get a response
 Once I do I continue on reading in an infinite loop
@@ -40,4 +55,28 @@ in the left panel click "add" and choose imu under rviz_imu_plugin
 now you have imu in the left panel. navigate to topic under imu menu and write imu/data (the topic which complementary filter publishes on)
 
 now navigate to global options in the left panel and write imu in the fixed frame option. This should resolve the error you just encountered due to ambigious references. 
+
+Next we configure the Gazebo environment for which we used the following tutorial:
+https://www.theconstructsim.com/how-to-launch-drone-simulation-locally/
+
+you need to mind the change of kinetic to melodic for this particular ROS configuration. Also when cloning the parrot repo, use this command instead:
+git clone --branch kinetic-gazebo9 https://bitbucket.org/theconstructcore/parrot_ardrone.git
+and don't make a separate catkin_ws for the parrot use the one already established. 
+
+Another problem arises when we try to excute catkin_make. To solve it access the cpp files and change the variable names as suggested in the
+errors on the terminal window. This is because we are using different version in which variable names are not entirely consistent. 
+
+I adapted all .cpp files to the new Gazebo API and ROS melodic. 
+
+
+Now we are trying to launch the simulation and nodes. I edited the launch files and some other scripts.
+
+to run Everything including Gazebo: 
+$ roslaunch drone_construct main.launch 
+$ roslaunch drone_construct intro.launch 
+
+This will launch the Gazebo environment and setup the world and the drone for you,as well as construct the ros network 
+which can be validated by running rqt_graph by: 
+$ rosrun rqt_graph rqt_graph
+
 

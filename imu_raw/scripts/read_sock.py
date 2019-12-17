@@ -24,6 +24,7 @@ def assign_data(imu_msg, data):
     seq +=1
     return
 def main():
+    ip = input('ip = ')
     # 1. Init a Publisher object with name that the 
     #    complementary filter expects
     pub = rospy.Publisher('imu/data_raw', Imu, queue_size=10)
@@ -43,7 +44,7 @@ def main():
         try:
             rospy.loginfo("Sending to UDP Node")
             # 6.1 Send a space to initiate conversation
-            txSocket.sendto("  ".encode(),("192.168.1.90",8888))
+            txSocket.sendto("  ".encode(),(ip,8888))
             sleep(.2)
             # 6.2 Wait for acknowledgment signal ir try again
             data, addr = txSocket.recvfrom(1024)   

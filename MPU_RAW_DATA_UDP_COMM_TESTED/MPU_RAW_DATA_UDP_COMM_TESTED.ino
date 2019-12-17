@@ -3,8 +3,8 @@
 #include <WiFiUdp.h>
 
 #ifndef STASSID
-#define STASSID "BLBLMK"              //Name of the wifi that has both NodeMCU and laptop connected to
-#define STAPSK  "B00L04B007K13"       //Wifi password
+#define STASSID "Kasem"              //Name of the wifi that has both NodeMCU and laptop connected to
+#define STAPSK  "12345kkk"       //Wifi password
 #endif
 
 unsigned int localPort = 8888;      // local port to listen on. We can use any number here so long it's shared with the listener

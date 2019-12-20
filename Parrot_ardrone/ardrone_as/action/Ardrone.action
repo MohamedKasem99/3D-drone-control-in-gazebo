@@ -1,0 +1,10 @@
+#goal for the drone
+int32 nseconds  # the number of seconds the drone will be taking pictures
+
+---
+#result
+sensor_msgs/CompressedImage[] allPictures # an array containing all the pictures taken along the nseconds
+
+---
+#feedback
+sensor_msgs/CompressedImage lastImage  # the last image taken

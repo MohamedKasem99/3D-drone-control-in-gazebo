@@ -66,7 +66,9 @@ and don't make a separate catkin_ws for the parrot use the one already establish
 Another problem arises when we try to excute catkin_make. To solve it access the cpp files and change the variable names as suggested in the
 errors on the terminal window. This is because we are using different version in which variable names are not entirely consistent. 
 
-I adapted all .cpp files to the new Gazebo API and ROS melodic. 
+I adapted all .cpp files to the new Gazebo API and ROS melodic. (If you pull the repository and run into some problems with the parrot_ardrone files, you
+can pull my updated repo for parrot_ardrone from this link: https://github.com/MohamedKasem99/parrot_ardrone_for_Ros_Melodic_Gazebo9_update and use it
+instead of the regular parrot_ardrone repo that's outdated)
 
 
 Now we are trying to launch the simulation and nodes. I edited the launch files and some other scripts.
@@ -78,5 +80,21 @@ $ roslaunch drone_construct intro.launch
 This will launch the Gazebo environment and setup the world and the drone for you,as well as construct the ros network 
 which can be validated by running rqt_graph by: 
 $ rosrun rqt_graph rqt_graph
+
+Next, perform quantitative analysis for the data over UDP. 
+Also, write a node that takes IMU_data and converts it to cmd_velocity twist msgs and publish them to the cmd_vel topic. This should let you control 
+the gazebo drone.
+
+To takeoff the drone:
+$ rostopic pub /drone/takeoff std_msgs/Empty "{}" 
+To land the drone: 
+rostopic pub /drone/land std_msgs/Empty "{}" 
+
+After that to simulate Everything, run this command, after setting up the teleop_twist_keyboard by these commands: 
+$ sudo apt-get install ros-melodic-teleop-twist-keyboard
+$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+
+This will lanuch a node that publishes to cmd_vel topic the control data as suggested in the terminal window.
+
 
 

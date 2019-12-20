@@ -53,15 +53,22 @@ $ sudo apt-get install libignition-math4-dev -y
 ```bash
 $ cd ~/catkin_ws
 $ export CXXFLAGS=-isystem\ /usr/include/ignition/math4
-$ source /opt/ros/kinetic/setup.bash
+$ source /opt/ros/melodic/setup.bash
 $ catkin_make
 $ source devel/setup.bash
+$ echo "source ~/catkin_ws/devel/setup.bash" >> .bashrc
 $ rospack profile
 ```
 
 Now all packages are downloaded, compiled and ready to be launched.
 
 5 - To run the ROS master, Gazebo, include simulation objects, and run the nodes for filtering and publishing cmd_vel data: 
+
+**(optional)**
+
+```bash
+$ chmod -R u+x ~/parrot_ws/ 
+```
 
 ​												==***Each command in a separate terminal window***==
 
@@ -95,7 +102,29 @@ $ rostopic pub /drone/takeoff std_msgs/Empty "{}"
 $ rostopic pub /drone/land std_msgs/Empty "{}"
 ```
 
+## How it all works
 
+ROS works on the basis of publisher-subscriber message passing. That said, a really important step is to visualize all the topics on the network running in the background and exchanging data in a seamless but reliable manner. This is extremely helpful for debugging and understanding the flow and hierarchy of the whole project. To visualize all the topics on the network we can use the pre-shipped rqt_graph package. To run rqt_graph: 
+
+```bash
+$ rosrun rqt_graph rqt_graph
+```
+
+The following graph was obtained from rqt_graph
+
+ ![topics](images/topics.png)
+
+
+
+In the graph, we can see the running topics. The simplest way to explain the flow is the following:
+
+1- obtain the IMU raw data from /imu/data_raw topic
+
+2- filter the data by the /complementary_filter_node and publish it to /imu/rpy/filtered topic 
+
+3- get the filtered data and convert it to command velocity messages by the /rpy_to_cmdvel node that subscribes to /imu/rpy/filtered and publishes on /cmd_vel
+
+4- use the data published on the topic /cmd_vel to control the drone in the gazebo environment
 
 ## Challenges
 
@@ -111,7 +140,13 @@ This will trick the installation into thinking that you are running the ubuntu b
 
 ## Quantitative analysis of UDP communication reliability 
 
+Analysis of the UDP communication was important for us to obtain concrete measurement of the amount of lost packets over the communication link. Since data drops are random, we ran 10 trials on 10,000 transmitted messages and recorded the number of dropped/lost messages. The following graph represents our measurement and suggests that on average we should expect around 3.3% of the transmitted messages to be dropped/lost. Although this number is ridiculously high by the TCP standards, it doesn't seem to affect the smoothness of the user experience or the dynamics of the drone because of the high sampling rate.
 
+​												![UDP graph](images/UDP graph.jpg) 
 
+This graph could be reproduced for a general number of trails and messages through the following python code: 
 
+```python
+#Graphing the UDP link reliablity
+```
 

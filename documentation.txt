@@ -56,19 +56,33 @@ now you have imu in the left panel. navigate to topic under imu menu and write i
 
 now navigate to global options in the left panel and write imu in the fixed frame option. This should resolve the error you just encountered due to ambigious references. 
 
-Next we configure the Gazebo environment for which we used the following tutorial:
-https://www.theconstructsim.com/how-to-launch-drone-simulation-locally/
+Next we configure the Gazebo environment:
+This will download the needed files for the drone simulation and ignition math library that's needed for all the math functions.
+$ cd ~/catkin_ws/
+$ cd /src
+$ git clone https://github.com/MohamedKasem99/parrot_ardrone_for_Ros_Melodic_Gazebo9_update.git
+$ sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+$ wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+$ sudo apt-get update
+$ sudo apt-get install libignition-math4-dev -y
 
-you need to mind the change of kinetic to melodic for this particular ROS configuration. Also when cloning the parrot repo, use this command instead:
-git clone --branch kinetic-gazebo9 https://bitbucket.org/theconstructcore/parrot_ardrone.git
-and don't make a separate catkin_ws for the parrot use the one already established. 
+compile the packages
+$ cd ~/catkin_ws
+$ export CXXFLAGS=-isystem\ /usr/include/ignition/math4
+$ source /opt/ros/kinetic/setup.bash
+$ catkin_make
+
+$ source devel/setup.bash
+$ rospack profile
+
+Now the package is downloaded, compiled and ready to be launched.
 
 Another problem arises when we try to excute catkin_make. To solve it access the cpp files and change the variable names as suggested in the
 errors on the terminal window. This is because we are using different version in which variable names are not entirely consistent. 
 
 I adapted all .cpp files to the new Gazebo API and ROS melodic. (If you pull the repository and run into some problems with the parrot_ardrone files, you
 can pull my updated repo for parrot_ardrone from this link: https://github.com/MohamedKasem99/parrot_ardrone_for_Ros_Melodic_Gazebo9_update and use it
-instead of the regular parrot_ardrone repo that's outdated)
+instead of the regular parrot_ardrone repo that's outdated).
 
 
 Now we are trying to launch the simulation and nodes. I edited the launch files and some other scripts.

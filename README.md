@@ -11,9 +11,9 @@ In this project, we implement a 3d interactive glove controller that is used to 
 
 ## Schematic and Hardware
 
-![](/media/kasem/Happy_place/University stuff/Year #4/Fall 2019/Embedded Systems/Projects/Final project/Finalized codes/3D-drone-control-in-gazebo/images/Schematic.png)
+![Schematic](images/Schematic.png)
 
-<img src="/media/kasem/Happy_place/University stuff/Year #4/Fall 2019/Embedded Systems/Projects/Final project/Finalized codes/3D-drone-control-in-gazebo/images/Hardware.jpg" alt="Hardware" style="zoom:50%;" />
+<img src="images/Hardware.jpg" alt="Hardware" style="zoom:50%;" />
 
 #### Note
 

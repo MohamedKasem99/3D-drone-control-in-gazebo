@@ -25,7 +25,9 @@ For more details follow this [tutorial](https://randomnerdtutorials.com/how-to-i
 
 ## Steps to run the whole project
 
-1- create and setup the catkin workspace (skip if you already have your own or create another with a different name).
+1- upload the Arduino sketch in the MPU_RAW_DATA_UDP_COMM_TESTED folder. Change lines 6 and 7 according to your shared WLAN SSID and password, as suggested by the comments following those lines. Now connect your computer to that same WLAN to be on the same network and be able to communicate with NodeMCU.
+
+2- create and setup the catkin workspace (skip if you already have your own or create another with a different name).
 
 ```bash
 $ mkdir -p ~/catkin_ws/src
@@ -33,13 +35,13 @@ $ cd ~/catkin_ws/
 $ catkin_make
 ```
 
-2- clone this repository into your src folder
+3- clone this repository into your src folder
 
 ```bash
 $ git clone https://github.com/MohamedKasem99/3D-drone-control-in-gazebo.git
 ```
 
-3- install the ignition math library which is used by the drone simulation files.
+4- install the ignition math library which is used by the drone simulation files.
 
 ```bash
 $ sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
@@ -48,7 +50,7 @@ $ sudo apt-get update
 $ sudo apt-get install libignition-math4-dev -y
 ```
 
-4- compile all the packages so that ROS can find and run them
+5- compile all the packages so that ROS can find and run them
 
 ```bash
 $ cd ~/catkin_ws
@@ -62,7 +64,7 @@ $ rospack profile
 
 Now all packages are downloaded, compiled and ready to be launched.
 
-5 - To run the ROS master, Gazebo, include simulation objects, and run the nodes for filtering and publishing cmd_vel data: 
+6 - To run the ROS master, Gazebo, include simulation objects, and run the nodes for filtering and publishing cmd_vel data: 
 
 **(optional)**
 
@@ -80,7 +82,7 @@ $ roslaunch drone_construct main.launch
 $ roslaunch drone_construct intro.launch 
 ```
 
-6- Next initialize the UDP listener
+7- Next initialize the UDP listener
 
 ​												==***Each command in a separate terminal window***==
 

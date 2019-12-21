@@ -70,7 +70,7 @@ $ export CXXFLAGS=-isystem\ /usr/include/ignition/math4
 $ source /opt/ros/melodic/setup.bash
 $ catkin_make
 $ source devel/setup.bash
-$ echo "source ~/catkin_ws/devel/setup.bash" >> .bashrc
+$ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 $ rospack profile
 ```
 
@@ -81,7 +81,7 @@ Now all packages are downloaded, compiled and ready to be launched.
 **(optional)**
 
 ```bash
-$ chmod -R u+x ~/parrot_ws/ 
+$ chmod -R u+x ~/catkin_ws/ 
 ```
 
 ​												==***Each command in a separate terminal window***==
@@ -134,9 +134,9 @@ The following graph was obtained from rqt_graph
 
 In the graph, we can see the running topics. The simplest way to explain the flow is the following:
 
-1- obtain the IMU raw data from /imu/data_raw topic
+1- /imu_raw_publisher is a UDP listener that gets the raw data from NodeMCU and publishes it on imu/data_raw topic for the complementary filter to see. 
 
-2- filter the data by the /complementary_filter_node and publish it to /imu/rpy/filtered topic 
+2- /complementary_filter_node subscribes to imu/data_raw to obtain and filter incoming raw data then publish it to /imu/rpy/filtered topic 
 
 3- get the filtered data and convert it to command velocity messages by the /rpy_to_cmdvel node that subscribes to /imu/rpy/filtered and publishes on /cmd_vel
 

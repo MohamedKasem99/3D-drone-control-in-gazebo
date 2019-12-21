@@ -10,4 +10,10 @@
   </include>
   <include file="$(find drone_construct)/launch/put_robot_in_world.launch"/>
 
+   <node pkg="imu_complementary_filter" type="complementary_filter_node" 
+    name="complementary_filter_node" args="_publish_debug_topics:=true"/>
+    
+    <node pkg="imu_raw" type="rpy_to_cmdvel.py" 
+    name="rpy_to_cmdvel" args=" _g_linear:=3 _g_angular:=1.5"/>
+
 </launch>

@@ -144,7 +144,7 @@ This will trick the installation into thinking that you are running the ubuntu b
 
 Analysis of the UDP communication was important for us to obtain concrete measurement of the amount of lost packets over the communication link. Since data drops are random, we ran 10 trials on 10,000 transmitted messages and recorded the number of dropped/lost messages. The following graph represents our measurement and suggests that on average we should expect around 3.3% of the transmitted messages to be dropped/lost. Although this number is ridiculously high by the TCP standards, it doesn't seem to affect the smoothness of the user experience or the dynamics of the drone because of the high sampling rate.
 
-​												![UDP graph](images/UDP\ graph.jpg) 
+​												![UDP graph](images/UDP graph.jpg) 
 
 This graph could be reproduced for a general number of trails and messages through the following python code: 
 

@@ -45,6 +45,7 @@ For more details follow this [tutorial](https://randomnerdtutorials.com/how-to-i
 $ mkdir -p ~/catkin_ws/src
 $ cd ~/catkin_ws/
 $ catkin_make
+$ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 ```
 
 3- clone this repository into your src folder
@@ -70,7 +71,6 @@ $ export CXXFLAGS=-isystem\ /usr/include/ignition/math4
 $ source /opt/ros/melodic/setup.bash
 $ catkin_make
 $ source devel/setup.bash
-$ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 $ rospack profile
 ```
 
